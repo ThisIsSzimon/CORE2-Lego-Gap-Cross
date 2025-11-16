@@ -1,0 +1,9 @@
+C:/Users/szymo/Desktop/core2-projekt/build/CMakeFiles/console.dir
+C:/Users/szymo/Desktop/core2-projekt/build/CMakeFiles/myproject.elf.dir
+C:/Users/szymo/Desktop/core2-projekt/build/CMakeFiles/myproject.bin.dir
+C:/Users/szymo/Desktop/core2-projekt/build/CMakeFiles/myproject.hex.dir
+C:/Users/szymo/Desktop/core2-projekt/build/CMakeFiles/flash_myproject.dir
+C:/Users/szymo/Desktop/core2-projekt/build/CMakeFiles/flash.dir
+C:/Users/szymo/Desktop/core2-projekt/build/CMakeFiles/printvars.dir
+C:/Users/szymo/Desktop/core2-projekt/build/CMakeFiles/edit_cache.dir
+C:/Users/szymo/Desktop/core2-projekt/build/CMakeFiles/rebuild_cache.dir
