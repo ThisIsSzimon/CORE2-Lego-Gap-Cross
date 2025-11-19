@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(ARoboCoreProject NONE)
 
-include(${HFRAMEWORK_PATH}/hFramework.cmake)
+include("D:/Coding/LEGO/husarion.husarion-1.5.30/sdk/hFramework.cmake")
 
 enable_module(hCloudClient)
 enable_module(hSensors)

@@ -1,4 +1,4 @@
-set(CMAKE_CXX_COMPILER "D:/STM32/STM32CubeCLT/STM32CubeCLT_1.19.0/GNU-tools-for-STM32/bin/arm-none-eabi-g++.exe")
+set(CMAKE_CXX_COMPILER "C:/Tools/bin/arm-none-eabi-g++.exe")
 set(CMAKE_CXX_COMPILER_ARG1 "")
 set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_COMPILER_VERSION "")
@@ -22,11 +22,11 @@ set(CMAKE_CXX_SIMULATE_VERSION "")
 
 
 
-set(CMAKE_AR "D:/STM32/STM32CubeCLT/STM32CubeCLT_1.19.0/GNU-tools-for-STM32/bin/arm-none-eabi-ar.exe")
-set(CMAKE_CXX_COMPILER_AR "D:/STM32/STM32CubeCLT/STM32CubeCLT_1.19.0/GNU-tools-for-STM32/bin/arm-none-eabi-gcc-ar.exe")
-set(CMAKE_RANLIB "D:/STM32/STM32CubeCLT/STM32CubeCLT_1.19.0/GNU-tools-for-STM32/bin/arm-none-eabi-ranlib.exe")
-set(CMAKE_CXX_COMPILER_RANLIB "D:/STM32/STM32CubeCLT/STM32CubeCLT_1.19.0/GNU-tools-for-STM32/bin/arm-none-eabi-gcc-ranlib.exe")
-set(CMAKE_LINKER "D:/STM32/STM32CubeCLT/STM32CubeCLT_1.19.0/GNU-tools-for-STM32/bin/arm-none-eabi-ld.exe")
+set(CMAKE_AR "C:/Tools/bin/arm-none-eabi-ar.exe")
+set(CMAKE_CXX_COMPILER_AR "C:/Tools/bin/arm-none-eabi-gcc-ar.exe")
+set(CMAKE_RANLIB "C:/Tools/bin/arm-none-eabi-ranlib.exe")
+set(CMAKE_CXX_COMPILER_RANLIB "C:/Tools/bin/arm-none-eabi-gcc-ranlib.exe")
+set(CMAKE_LINKER "C:/Tools/bin/arm-none-eabi-ld.exe")
 set(CMAKE_MT "")
 set(CMAKE_TAPI "CMAKE_TAPI-NOTFOUND")
 set(CMAKE_COMPILER_IS_GNUCXX )
@@ -50,7 +50,7 @@ endforeach()
 
 set(CMAKE_CXX_LINKER_PREFERENCE 30)
 set(CMAKE_CXX_LINKER_PREFERENCE_PROPAGATES 1)
-set(CMAKE_CXX_LINKER_DEPFILE_SUPPORTED TRUE)
+set(CMAKE_CXX_LINKER_DEPFILE_SUPPORTED FALSE)
 
 # Save compiler ABI information.
 set(CMAKE_CXX_SIZEOF_DATA_PTR "")

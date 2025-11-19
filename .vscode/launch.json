@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flash to CORE2",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/myproject.elf",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "env": {
+                "GDBWRAPPER_FLASH": "true"
+            },
+            "miDebuggerPath": "${workspaceRoot}\\.vscode\\debugger.cmd",
+            "miDebuggerServerAddress": "localhost:4242",
+            "externalConsole": true,
+            "MIMode": "gdb"
+        }
+    ]
+}

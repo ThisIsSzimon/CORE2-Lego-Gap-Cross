@@ -1,36 +1,47 @@
 #include <hFramework.h>
+#include <DistanceSensor.h>
+
+using namespace hModules;
 
 void hMain()
 {
-    hExt.serial.init(115200);  // MUSI być ten sam baud co na ESP32
-    hExt.serial.printf("Sterowanie LED1 przez hExt.serial (q/w/e)\r\n");
-    hExt.serial.printf("q = ON, w = OFF, e = TOGGLE\r\n");
-
-    while (true)
+    hExt.serial.init(115200);
+    char c;
+    while (1)
     {
-        if (hExt.serial.available() > 0)
-        {
-            char c = hExt.serial.getch();
-            hExt.serial.printf("KEY '%c' (%d)\r\n", c, (int)c);
-
-            if (c == 'q') {
+        if (hExt.serial.available() > 0) { // checking Serial availability
+            c = hExt.serial.getch();
+            if(c == 'a') {
                 hLED1.on();
-                hExt.serial.printf("LED1: ON\r\n");
+                hLED2.off();
+                hLED3.off();
+                hMot1.setPower(500);
             }
-            else if (c == 'w') {
+            if(c == 's') {
                 hLED1.off();
-                hExt.serial.printf("LED1: OFF\r\n");
+                hLED2.on();
+                hLED3.off();
+                hMot1.setPower(0);
             }
-            else if (c == 'e') {
-                hLED1.toggle();
-                sys.delay(500);
-                hExt.serial.printf("LED1: TOGGLE\r\n");
+            if(c == 'd') {
+                hLED1.off();
+                hLED2.off();
+                hLED3.on();
+                hMot1.setPower(-500);
             }
-            else {
-                hExt.serial.printf("Nieznany: '%c' (%d)\r\n", c, (int)c);
+            if(c == 'z'){
+                hMot2.setPower(1000);
+                hMot3.setPower(1000);
+
+            }
+            if(c == 'x'){
+                hMot2.setPower(0);
+                hMot3.setPower(0);
+            }
+            if(c == 'c'){
+                hMot2.setPower(-1000);
+                hMot3.setPower(-1000);
             }
         }
-
-        sys.delay(10);
     }
 }
