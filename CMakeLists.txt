@@ -10,6 +10,5 @@ enable_module(hROS)
 
 add_hexecutable(myproject main.cpp)
 
-# *** DODANE: flaga linkera dla konkretnego targetu ***
 set_target_properties(myproject.elf PROPERTIES LINK_FLAGS "-Wl,--allow-multiple-definition")
 
