@@ -5,27 +5,27 @@
 using namespace hModules;
 using namespace hSensors;
 
-// ----------------- Konfiguracja -----------------
+//  Konfiguracja 
 const int ROBOT_SPEED = 300;                 // moc dla hMot1 (0–1000)
-const int CANYON_DIST_THRESHOLD = 15;        // [mm] powyżej tej odległości uznajemy, że czujnik widzi "dziurę"
+const int CANYON_DIST_THRESHOLD = 15;        // powyżej tej odległości uznajemy, że czujnik widzi dziuer
 
 // hMot2 + hMot3 – most + podnoszenie/opuszczanie robota
-const int BRIDGE_DOWN_POWER        = -900;   // kierunek: most w dół + robot w górę (dobierz znak)
-const int BRIDGE_UP_POWER          = 900;    // przeciwny kierunek: most w górę + robot w dół
+const int BRIDGE_DOWN_POWER        = -900;
+const int BRIDGE_UP_POWER          = 900;
 
-const uint32_t BRIDGE_ALIGN_STABLE_MS       = 500;   // (na razie nieużywane w tym kawałku)
-const uint32_t BRIDGE_DOWN_ROBOT_UP_TIME_MS = 3000;  // (do dalszych kroków)
-const uint32_t BRIDGE_UP_ROBOT_DOWN_TIME_MS = 2500;  // (do dalszych kroków)
+const uint32_t BRIDGE_ALIGN_STABLE_MS       = 500;
+const uint32_t BRIDGE_DOWN_ROBOT_UP_TIME_MS = 3000;
+const uint32_t BRIDGE_UP_ROBOT_DOWN_TIME_MS = 2500;
 
 // hMot4 – przejazd po moście
-const int H4_ROT_TICKS      = 2000;   // ile ticków po moście – do kalibracji
-const int H4_ROT_SPEED      = 400;    // „moc” hMot4 (0–1000)
+const int H4_ROT_TICKS      = 2000;   // ile ticków po moście
+const int H4_ROT_SPEED      = 400;    // moc hMot4 (0–1000)
 const uint32_t WAIT_AFTER_H4_MS = 500; // przerwa po przejechaniu po moście
 
 // ile ticków ma zjechać most w dół (relatywnie)
 const int BRIDGE_TOUCH_TICKS = 13000;
 
-// ----------------- Stany automatu -----------------
+// Stany automatu 
 enum class State {
     WAIT_START,             // czekamy na wciśnięcie hBtn1
     SEARCH_CANYON,          // jedziemy do przodu, aż zobaczymy kanion (czujnik 3)
@@ -39,12 +39,11 @@ enum class State {
     MOVE_BRIDGE_AHEAD
 };
 
-// ----------------- Funkcje pomocnicze -----------------
+// Funkcje pomocnicze 
 
 bool isCanyon(int dist)
 {
     if (dist == 0) {
-        // często 0 oznacza: brak echa / bardzo daleko
         return true;
     }
 
@@ -64,19 +63,17 @@ static inline int absInt(int x) { return (x < 0) ? -x : x; }
 
 void hMain()
 {
-    // Czujniki odległości:
     DistanceSensor sens1(hSens1); // 1: koniec mostu (nad biurkiem 2)
     DistanceSensor sens2(hSens2); // 2: koniec robota
     DistanceSensor sens3(hSens3); // 3: początek robota (wykrywanie początku kanionu)
     DistanceSensor sens4(hSens4); // 4: początek mostu (nad biurkiem 1)
 
-    // Krańcówki na hSens5 i hSens6
     hLegoSensor_simple ls5(hSens5);
     hLegoSensor_simple ls6(hSens6);
     Lego_Touch limit5(ls5);
     Lego_Touch limit6(ls6);
 
-    // Polaryzacja silników mostu
+    // Polaryzacja silników
     hMot2.setEncoderPolarity(Polarity::Reversed);
     hMot2.setMotorPolarity(Polarity::Normal);
 
@@ -86,7 +83,6 @@ void hMain()
     hMot1.setEncoderPolarity(Polarity::Reversed);
     hMot1.setMotorPolarity(Polarity::Normal);
 
-    // Start – zatrzymujemy wszystko
     hMot1.setPower(0);
     hMot2.setPower(0);
     hMot3.setPower(0);
@@ -102,13 +98,11 @@ void hMain()
 
     for (;;)
     {
-        // --- Odczyt czujników odległości ---
         int d1 = sens1.getDistance();
         int d2 = sens2.getDistance();
         int d3 = sens3.getDistance();
         int d4 = sens4.getDistance();
 
-        // --- Odczyt enkoderów wszystkich silników ---
         int e1 = hMot1.getEncoderCnt();
         int e2 = hMot2.getEncoderCnt();
         int e3 = hMot3.getEncoderCnt();
@@ -116,7 +110,6 @@ void hMain()
 
         uint64_t now = sys.getRefTime();
 
-        // Jeden wspólny log: czujniki + stan + enkodery
         Serial.printf(
             "d1=%d d2=%d d3=%d d4=%d  state=%d  enc1=%d enc2=%d enc3=%d enc4=%d\r\n",
             d1, d2, d3, d4, (int)state,
@@ -127,7 +120,6 @@ void hMain()
         {
         case State::WAIT_START:
         {
-            // wszystko stoi, czekamy na przycisk
             hMot1.setPower(0);
             hMot2.setPower(0);
             hMot3.setPower(0);
@@ -156,18 +148,16 @@ void hMain()
         case State::SEARCH_CANYON:
             Serial.printf("START SEARCH KANION\r\n");
 
-            // --- KROK 1: jedziemy do przodu, aż czujnik 3 zobaczy kanion ---
-            hMot1.setPower(ROBOT_SPEED);   // jeśli jedzie w złą stronę -> zmień znak
+            // jedziemy do przodu, aż czujnik 3 zobaczy kanion 
+            hMot1.setPower(ROBOT_SPEED);
 
             if (isCanyon(d3)) {
                 hMot1.setPower(0);
                 Serial.printf("KROK 1: WYKRYTO KANION -> STOP ROBOT\r\n");
-
-                // przejście do BRIDGE_EXTEND
                 state = State::BRIDGE_EXTEND;
                 stateEntryTime = now;
             }
-            sys.delay(200); // mała pauza po wykryciu
+            sys.delay(200);
             break;
 
         case State::BRIDGE_EXTEND:
@@ -195,7 +185,7 @@ void hMain()
         }
 
         case State::BRIDGE_TOUCH:
-            // --- MOST W DÓŁ DO MOMENTU KIEDY LEKKO DOTKNIE BIUREK - relatywnie ---
+            // MOST W DÓŁ DO MOMENTU KIEDY LEKKO DOTKNIE BIUREK
             Serial.printf("BRIDGE_TOUCH:\r\n");
 
             hMot2.rotRel(BRIDGE_TOUCH_TICKS,  900,  false, INFINITE);
