@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Sterowanie mostem i pojazdami</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Sterowanie CORE2 przez ESP32</h1>
+
+  <div class="section">
+    <h2>Most</h2>
+    <div class="buttons-row">
+      <button id="btnBridgeUp">Góra</button>
+      <button id="btnBridgeDown">Dół</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Pojazd na moście</h2>
+    <div class="buttons-row">
+      <button id="btnCarBridgeFwd">Przód</button>
+      <button id="btnCarBridgeBack">Tył</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Pojazd na biurku</h2>
+    <div class="buttons-row">
+      <button id="btnCarDeskFwd">Przód</button>
+      <button id="btnCarDeskBack">Tył</button>
+    </div>
+  </div>
+
+  <div id="status">
+    Oczekiwanie na kliknięcie...
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>
